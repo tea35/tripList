@@ -23,7 +23,7 @@ export default function Register() {
         };
         //registerAPIを叩く
         // await axios.post("/auth/register", user);
-        navigate("/login");
+        navigate("/login"); // 会員登録完了後、ログイン画面へ
       } catch (err) {
         console.log(err);
       }
@@ -31,39 +31,54 @@ export default function Register() {
   };
   return (
     <div>
-      <div>Register</div>
-      <div className="loginRight">
-        <form className="loginBox" onSubmit={(e) => handleClick(e)}>
-          <p className="loginMsg">新規登録はこちら</p>
-          <input
-            type="email"
-            className="loginInput"
-            placeholder="Eメール"
-            required
-            ref={email}
-          />
-          <input
-            type="password"
-            className="loginInput"
-            placeholder="パスワード"
-            required
-            minLength="6"
-            ref={password}
-          />
-          <input
-            type="password"
-            className="loginInput"
-            placeholder="確認用パスワード"
-            required
-            minLength="6"
-            ref={passwordConfirmation}
-          />
-          <button className="loginButton" type="submit">
-            サインアップ
-          </button>
-          <button className="loginRegisterButton">ログイン</button>
-        </form>
+      
+      <div className="headerBar">
+        <h1>TripList</h1>
       </div>
+
+       <div className="registerBackground"style={{ backgroundImage: 'url("/sample2.png")' }}>
+
+        <div className="registerForm">
+          <div className="registerLeft"></div>
+
+          <div className="registerRight">
+            <form className="registerBox" onSubmit={(e) => handleClick(e)}>
+              <p className="registerTitle">新規会員登録はこちら</p>
+              <p className="registerMsg">登録するメールアドレスとパスワードを入力してください</p>
+              メールアドレス
+              <input
+                type="email"
+                className="registerInput"
+                placeholder="example@mail.com"
+                required
+                ref={email}
+              />
+              パスワード
+              <input
+                type="password"
+                className="registerInput"
+                placeholder="●●●●●●"
+                required
+                minLength="6"
+                ref={password}
+              />
+              確認用パスワード
+              <input
+                type="password"
+                className="registerInput"
+                placeholder="●●●●●●"
+                required
+                minLength="6"
+                ref={passwordConfirmation}
+              />
+              <button className="registerButton" type="submit">会員登録する</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      
     </div>
   );
 }

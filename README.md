@@ -41,7 +41,7 @@ pip install flask-sqlalchemy flask-migrate
 python3 backend/sample.py
 ```
 
-## データベースの作り方
+## データベース関連
 
 ### SQLiteの設定
 
@@ -64,4 +64,39 @@ python3 backend/sample.py
 
 ```
 sqlite3 backend/database/triplist.db < backend/database/create_triplistdb.sql
+```
+
+## API関連
+
+### Flaskサーバー起動方法
+
+**Mac**
+```
+python3 backend/database/main_db.py
+```
+
+**Windows**
+```
+python backend/database/main_db.py
+```
+
+### API検証方法
+
+> [!IMPORTANT]
+> Flaskサーバー起動時に使ったターミナルとは別のターミナルで行う
+
+#### 会員登録用API
+
+```
+curl -X POST http://127.0.0.1:5000/register \
+    -H "Content-Type: application/json" \
+    -d '{"email":"test@example.com", "password":"secret"}'
+```
+
+#### ログイン用API
+
+```
+curl -X POST http://127.0.0.1:5000/login \
+    -H "Content-Type: application/json" \
+    -d '{"email":"test@example.com", "password":"secret"}'
 ```

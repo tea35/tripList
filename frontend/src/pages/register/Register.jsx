@@ -36,7 +36,7 @@ export default function Register() {
         <h1>TripList</h1>
       </div>
 
-       <div className="registerBackground"style={{ backgroundImage: 'url("/sample2.png")' }}>
+      <div className="registerBackground"style={{ backgroundImage: 'url("/sample2.png")' }}>
 
         <div className="registerForm">
           <div className="registerLeft"></div>

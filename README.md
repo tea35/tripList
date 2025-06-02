@@ -63,7 +63,7 @@ python3 backend/sample.py
 ### 会員情報のデータベースを作る
 
 ```
-sqlite3 backend/database/triplist.db < backend/database/create_triplistdb.sql
+python backend/database/create_db.py
 ```
 
 ## API関連
@@ -99,4 +99,20 @@ curl -X POST http://127.0.0.1:5000/register \
 curl -X POST http://127.0.0.1:5000/login \
     -H "Content-Type: application/json" \
     -d '{"email":"test@example.com", "password":"secret"}'
+```
+
+#### 旅行リスト追加用API
+
+```
+curl -X POST http://127.0.0.1:5000/add_triplist \
+    -H "Content-Type: application/json" \
+    -d '{"user":"test@example.com", "location_name":"東京", "location_latitude":35.6895, "location_longitude":139.6917, "date":"2025-12-24"}'
+```
+
+#### チェックリストに項目を追加するAPI
+
+```
+curl -X POST http://127.0.0.1:5000/add_item \
+    -H "Content-Type: application/json" \
+    -d '{"checklist_id":1, "item_name":"服", "item_num":3, "check_bool":"False"}'
 ```

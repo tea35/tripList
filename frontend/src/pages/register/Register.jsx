@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Register.css";
 
+//会員登録ページ
 export default function Register() {
   const email = useRef();
   const password = useRef();

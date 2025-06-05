@@ -34,6 +34,7 @@ export default function Checklist() {
     setItems(newItems);
   };
 
+  //チェックリストの削除
   const handleDelete = (index) => {
     const newItems = items.filter((_, i) => i !== index);
     setItems(newItems);
@@ -66,77 +67,64 @@ export default function Checklist() {
         <h1>TripList</h1>
       </div>
 
-      <div className="checklist">
-        <h2>旅行チェックリスト</h2>
-
-        <button className="saveButton">保存</button>
-
-        {/*チェックリスト */}
-        <ul>
-          {items.map((item, idx) => (
-            <li key={idx}>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={item.checked}
-                  onChange={() => handleToggle(idx)}
-                />
-                {item.name}
-              </label>
-                {/*
-                <input
-                  type="number"
-                  className="quantityInput"
-                  min="1"
-                  value={item.quantity}
-                  onChange={(e) => handleQuantityChange(idx, Number(e.target.value))}
-                />
-                */}
-                <div className="quantityChange">
-                  {item.quantity > 1 && (
-                    <div >
-                      <button 
-                        onClick={() => handleQuantityChange(idx, item.quantity - 1)} 
-                        disabled={item.quantity <= 1}
-                      >
-                      -
-                      </button>
-                      <span className="quantityItem">{item.quantity}個</span>
-                    </div>
-                  )}
-                  <button 
-                    onClick={() => handleQuantityChange(idx, item.quantity + 1)} 
-                  >
-                  +
-                  </button>
-
-                  <button onClick={() => handleDelete(idx)}>削除</button>
-                </div>
-            </li>
-          ))}
-        </ul>
-        
-
-        {/*荷物の新規作成*/}
-        <button onClick={() => setShowAddForm(true)}>新規作成</button>
-        {showAddForm && (
-          <div className="addItemForm">
-            <input
-              type="text"
-              placeholder="荷物"
-              value={newItemName}
-              onChange={(e) => setNewItemName(e.target.value)}
-            />
-            <input
-              type="number"
-              value={newItemQuantity}
-              onChange={(e) => setNewItemQuantity(Number(e.target.value))}
-              min="1"
-            />
-            <button onClick={handleAddItem}>追加する</button>
-            <button onClick={handleCancel}>キャンセル</button>
+      <div className="checklistBackground" style={{ backgroundImage: 'url("/sample2.png")' }}>
+        <div className="checkList">
+          <div className="titleBar">
+            <h2>旅行チェックリスト</h2>
+            <button className="saveButton">保存</button>
           </div>
-        )}
+          
+          <div className="checkListBox">
+            {/*チェックリスト */}
+            <ul>
+              {items.map((item, idx) => (
+                <li key={idx} className="listItem">
+                  <label>
+                    <input
+                      type="checkBox"
+                      checked={item.checked}
+                      onChange={() => handleToggle(idx)}
+                    />
+                    {item.name}
+                  </label>
+                    <div className="quantityChange"> {/*数量変更*/}
+                      {item.quantity > 1 && (
+                        <div >
+                          <button onClick={() => handleQuantityChange(idx, item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
+                          <span className="quantityItem">{item.quantity}個</span>
+                        </div>
+                      )}
+                      <button onClick={() => handleQuantityChange(idx, item.quantity + 1)}>+</button>
+
+                      <button className="deleteButton" onClick={() => handleDelete(idx)}>削除</button>
+                    </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          
+
+          {/*チェックリストの新規作成*/}
+          <button className="createListButton"onClick={() => setShowAddForm(true)}>新規作成</button>
+          {showAddForm && (
+            <div className="addItemForm">
+              <input
+                type="text"
+                placeholder="荷物"
+                value={newItemName}
+                onChange={(e) => setNewItemName(e.target.value)}
+              />
+              <input
+                type="number"
+                value={newItemQuantity}
+                onChange={(e) => setNewItemQuantity(Number(e.target.value))}
+                min="1"
+              />
+              <button onClick={handleAddItem}>追加</button>
+              <button onClick={handleCancel}>キャンセル</button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

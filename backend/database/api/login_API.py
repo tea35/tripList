@@ -9,7 +9,7 @@ login_bp = Blueprint('login', __name__)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(BASE_DIR, '../triplist.db')
 
-@login_bp.route('/login', methods=['POST'])
+@login_bp.route('/login', methods=['GET'])
 def login():
     '''
     ログイン機能のAPI

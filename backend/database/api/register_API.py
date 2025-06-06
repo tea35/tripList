@@ -26,13 +26,15 @@ def register():
 
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
-
-    cur.execute('''
-        INSERT INTO members (email, password)
-        VALUES (?, ?)
-    ''', (email, password))
-
-    conn.commit()
-    conn.close()
+    try:
+        cur.execute('''
+            INSERT INTO members (email, password)
+            VALUES (?, ?)
+        ''', (email, password))
+        return jsonify({'message': 'User registered successfully'}), 201
+    except sqlite3.OperationalError as e:
+        return jsonify({"message":str(e)}),500
+    finally:
+        conn.commit()
+        conn.close()
     
-    return jsonify({'message': 'User registered successfully'}), 201

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Register.css";
 
@@ -8,6 +8,7 @@ export default function Register() {
   const email = useRef();
   const password = useRef();
   const passwordConfirmation = useRef();
+  const [statusCode, setStatusCode] = useState("");
 
   const navigate = useNavigate();
 
@@ -18,17 +19,18 @@ export default function Register() {
       passwordConfirmation.current.setCustomValidity("パスワード違います");
     } else {
       try {
-        // const user = {
-        //   email: email.current.value,
-        //   password: password.current.value,
-        // };
-        // アカウントが存在するのかを確認する
-        // await axios.get("/auth/register",user);
-
+        const user = {
+          email: email.current.value,
+          password: password.current.value,
+        };
+        setStatusCode("");
         //registerAPIを叩く
-        // await axios.post("/auth/register", user);
+        await axios.post("/register", user);
         navigate("/login"); // 会員登録完了後、ログイン画面へ
       } catch (err) {
+        if (err.response.status === 500) {
+          setStatusCode("アカウントが存在しています");
+        }
         console.log(err);
       }
     }
@@ -81,6 +83,7 @@ export default function Register() {
               <button className="registerButton" type="submit">
                 会員登録する
               </button>
+              {statusCode && <p>{statusCode}</p>}
             </form>
           </div>
         </div>

@@ -9,14 +9,13 @@ login_bp = Blueprint('login', __name__)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(BASE_DIR, '../triplist.db')
 
-@login_bp.route('/login', methods=['GET'])
+@login_bp.route('/login', methods=['POST'])
 def login():
     '''
     ログイン機能のAPI
     ・JSONデータを受け取ることを想定している
     ・"email"と"password"の二つのtextで判断する
     '''
-    
     data = request.get_json()
     email = data.get('email')
     password = data.get('password')

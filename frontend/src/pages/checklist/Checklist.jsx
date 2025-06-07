@@ -11,7 +11,28 @@ export default function Checklist() {
     { name: "着替え", checked: false, quantity: 2 },
     { name: "下着", checked: false, quantity: 2 },
     { name: "コンタクト", checked: false, quantity: 2 },
-    { name: "充電器", checked: false, quantity: 1 },
+    { name: "コンタクトケース", checked: false, quantity: 1 },
+    { name: "洗浄液", checked: false, quantity: 1 },
+    { name: "メガネ", checked: false, quantity: 1 },
+    { name: "イヤホン", checked: false, quantity: 1 },
+    { name: "メイク道具", checked: false, quantity: 1 },
+    { name: "スキンケア用品", checked: false, quantity: 1 },
+    { name: "スマホ充電器", checked: false, quantity: 1 },
+    { name: "イヤホン充電器", checked: false, quantity: 1 },
+    { name: "おやつ", checked: false, quantity: 1 },
+    { name: "ヘアアイロン", checked: false, quantity: 1 },
+    { name: "チケット", checked: false, quantity: 2 },
+    { name: "パスポート", checked: false, quantity: 1 },
+    { name: "パスポートのコピー", checked: false, quantity: 1 },
+    { name: "エコバック", checked: false, quantity: 1 },
+    { name: "歯ブラシ", checked: false, quantity: 1 },
+    { name: "モバイルバッテリー", checked: false, quantity: 1 },
+    { name: "傘", checked: false, quantity: 1 },
+    { name: "カメラ", checked: false, quantity: 1 },
+    { name: "バック", checked: false, quantity: 1 },
+    { name: "パジャマ", checked: false, quantity: 1 },
+    { name: "現金", checked: false, quantity: 1 },
+    { name: "カード", checked: false, quantity: 1 }
 
   ]);
 
@@ -65,6 +86,7 @@ export default function Checklist() {
     <div>
       <div className="headerBar">
         <h1>TripList</h1>
+        
       </div>
 
       <div className="checklistBackground" style={{ backgroundImage: 'url("/sample2.png")' }}>
@@ -90,11 +112,11 @@ export default function Checklist() {
                     <div className="quantityChange"> {/*数量変更*/}
                       {item.quantity > 1 && (
                         <div >
-                          <button onClick={() => handleQuantityChange(idx, item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
-                          <span className="quantityItem">{item.quantity}個</span>
+                          <span className="quantityItem">× {item.quantity}</span>
+                          <button className="minusButton" onClick={() => handleQuantityChange(idx, item.quantity - 1)} disabled={item.quantity <= 1}>-</button> {/*-ボタン*/}
                         </div>
                       )}
-                      <button onClick={() => handleQuantityChange(idx, item.quantity + 1)}>+</button>
+                      <button className="plusButton" onClick={() => handleQuantityChange(idx, item.quantity + 1)}>+</button> {/*+ボタン*/}
 
                       <button className="deleteButton" onClick={() => handleDelete(idx)}>削除</button>
                     </div>

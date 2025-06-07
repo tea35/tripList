@@ -60,12 +60,6 @@ python3 backend/sample.py
             └── sqlite3.exe
 ```
 
-### 会員情報のデータベースを作る
-
-```
-python backend/database/create_db.py
-```
-
 ## API関連
 
 ### Flaskサーバー起動方法
@@ -80,12 +74,28 @@ python3 backend/database/main_db.py
 python backend/database/main_db.py
 ```
 
+### ダミーデータの生成
+
+> [!TIP]
+> Flaskサーバー起動時にデータベース、テーブルは自動で作成されるがからのデータなのでダミーデータを挿入する
+>
+> データの型の詳細は```backend/database/create_db.py```を参照
+
+```
+python backend/database/insert_dummydata.py   
+```
+
 ### API検証方法
 
 > [!IMPORTANT]
 > Flaskサーバー起動時に使ったターミナルとは別のターミナルで行う
 
-#### 会員登録用API
+
+#### 会員登録関連
+
+テーブル名：```members```
+
+##### 会員登録用API（register_API.py）
 
 ```
 curl -X POST http://127.0.0.1:5000/register \
@@ -93,7 +103,7 @@ curl -X POST http://127.0.0.1:5000/register \
     -d '{"email":"test@example.com", "password":"secret"}'
 ```
 
-#### ログイン用API
+##### ログイン用API（login_API.py）
 
 ```
 curl -X POST http://127.0.0.1:5000/login \
@@ -101,18 +111,55 @@ curl -X POST http://127.0.0.1:5000/login \
     -d '{"email":"test@example.com", "password":"secret"}'
 ```
 
-#### 旅行リスト追加用API
+#### 旅行全体リスト関連
+
+テーブル名：```triplist```
+
+##### 追加用API（add_triplist_API.py）
 
 ```
-curl -X POST http://127.0.0.1:5000/add_triplist \
+curl -X POST http://127.0.0.1:5000/triplist \
     -H "Content-Type: application/json" \
-    -d '{"user":"test@example.com", "location_name":"東京", "location_latitude":35.6895, "location_longitude":139.6917, "date":"2025-12-24"}'
+    -d '{"user":"test@example.com", "location_name":"東京", "location_latitude":35.6895, "location_longitude":139.6917, "first_date":"2025-12-24", "last_date":"2025-12-27"}'
 ```
 
-#### チェックリストに項目を追加するAPI
+##### 取得用API（get_triplist_API.py）
 
 ```
-curl -X POST http://127.0.0.1:5000/add_item \
+curl -X GET http://127.0.0.1:5000/triplist \
+    -H "Content-Type: application/json" \
+    -d '{"user": "alice@example.com"}'
+```
+
+##### 削除用API（delete_triplist_API.py）
+
+```
+curl -X DELETE http://127.0.0.1:5000/triplist/3
+```
+
+#### チェックリスト関連
+
+テーブル名：```checklist```
+
+##### 追加用API（add_item_API.py）
+
+```
+curl -X POST http://127.0.0.1:5000/item \
     -H "Content-Type: application/json" \
     -d '{"checklist_id":1, "item_name":"服", "item_num":3, "check_bool":"False"}'
 ```
+
+##### 取得用API（get_item_API.py）
+
+```
+curl -X GET http://127.0.0.1:5000/item \
+    -H "Content-Type: application/json" \
+    -d '{"checklist_id": 1}'
+```
+
+##### 削除用API（delete_item_API.py）
+
+```
+curl -X DELETE http://127.0.0.1:5000/item/2
+```
+

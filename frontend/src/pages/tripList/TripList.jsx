@@ -1,42 +1,55 @@
-import React from "react";
-import { format } from "date-fns";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "./TripList.css";
 
 export default function TripList() {
-  const startDate = format(new Date(), "M/d");
+  const navigate = useNavigate();
 
-  const endDate = format(new Date(), "M/d");
+  // 仮の旅行データ（本来はバックエンドから取得）
+  const trips = [
+    { id: 1, title: "東京", date: "1/1~1/3" },
+    { id: 2, title: "京都", date: "2/3~2/4" },
+  ];
+
+  // const [trips, setTrips] = useState([]); // APIから取得した旅行データ用のstate
+
+  // // コンポーネントが表示されたときにデータを取得
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:3000/api/trips") // ←ここは自分のAPIのURLに合わせてね
+  //     .then((response) => {
+  //       setTrips(response.data); // データをstateに保存
+  //     })
+  //     .catch((error) => {
+  //       console.error("データ取得エラー:", error);
+  //     });
+  // }, []);
 
   return (
     <div>
-      <div>TripList</div>
-      <div className="tripList">
-        <button className="addTrip">
-          <Link
-            to={`/createtrip`}
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            <span className="addTripText">+</span>
-          </Link>
-        </button>
-        <button className="tripItem">
-          <Link
-            to={`/createtrip`}
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            <div className="tripPlace">東京</div>
-            <div className="tripDate">
-              {startDate}-{endDate}
-            </div>
-          </Link>
-        </button>
-        <div className="tripItem">
-          <div className="tripPlace">東京</div>
-          <div className="date">
-            {startDate}-{endDate}
-          </div>
-        </div>
+      <div className="headerBar">
+        <h1>TripList</h1>
       </div>
+
+      <div className="tripList">
+        {trips.map((trip) => (
+          <div
+            key={trip.id}
+            className="tripCard"
+            onClick={() => navigate(`/trip/${trip.id}`)}
+          >
+            <p className="tripCardTitle">{trip.title}</p>
+            <p className="tripDate">{trip.date}</p>
+          </div>
+        ))}
+      </div>
+
+            
+      <button className="addButton" onClick={() => navigate("/createtrip")}>
+        +
+      </button>
+
     </div>
   );
 }

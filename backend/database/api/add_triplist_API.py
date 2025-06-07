@@ -9,7 +9,7 @@ add_triplist_bp = Blueprint('add_triplist', __name__)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(BASE_DIR, '../triplist.db')
 
-@add_triplist_bp.route('/add_triplist', methods=['POST'])
+@add_triplist_bp.route('/triplist', methods=['POST'])
 def add_triplist():
     '''
     登録機能のAPI

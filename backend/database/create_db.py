@@ -13,11 +13,12 @@ def create_tables():
     );
 
     CREATE TABLE IF NOT EXISTS triplist (
-        user TEXT UNIQUE NOT NULL,
+        user TEXT NOT NULL,
         location_name TEXT NOT NULL,
         location_latitude REAL,
         location_longitude REAL,
-        date TEXT UNIQUE NOT NULL,
+        first_date TEXT NOT NULL,
+        last_date TEXT NOT NULL,
         trip_id INTEGER PRIMARY KEY AUTOINCREMENT
     );
 
@@ -25,7 +26,9 @@ def create_tables():
         checklist_id INTEGER,
         item_name TEXT NOT NULL,
         item_num INTEGER,
-        check_bool INTEGER
+        check_bool INTEGER,
+        item_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        FOREIGN KEY (checklist_id) REFERENCES triplist(trip_id) ON DELETE CASCADE
     );
     '''
 

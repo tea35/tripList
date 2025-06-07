@@ -16,7 +16,6 @@ def login():
     ・JSONデータを受け取ることを想定している
     ・"email"と"password"の二つのtextで判断する
     '''
-    
     data = request.get_json()
     email = data.get('email')
     password = data.get('password')

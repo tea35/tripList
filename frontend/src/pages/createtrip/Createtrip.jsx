@@ -4,6 +4,7 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRange } from "react-date-range";
 import { useNavigate } from "react-router-dom";
 import { ja } from "date-fns/locale";
+import "./Createtrip.css";
 
 // 旅行日程を追加
 export default function Createtrip() {
@@ -34,28 +35,46 @@ export default function Createtrip() {
   };
   return (
     <div>
+      <div className="headerBar">
+        <h1>TripList</h1>
+      </div>
+
+      <div className="createtripBackground"
+        style={{ backgroundImage: 'url("/sample2.png")' }}
+      ></div>
+
       <form className="tripBox" onSubmit={(e) => handleClick(e)}>
-        <p className="tripTitle">追加</p>
+        <p className="tripFormTitle">新しい旅行を作成</p>
         <p className="tripMsg">旅行情報を入力してください</p>
-        場所
-        <input
-          type="text"
-          className="tripPlaceInput"
-          placeholder="東京"
-          required
-          ref={place}
-        />
-        <DateRange
-          onChange={(ranges) => setSelectedDateRange([ranges.selection])}
-          showSelectionPreview={true}
-          moveRangeOnFirstSelection={false}
-          months={1}
-          ranges={selectedDateRange}
-          dateDisplayFormat={"yyyy/MM/dd(E)"}
-          direction="horizontal"
-          locale={ja}
-        />
-        <div></div>
+
+        <div className="inputRow">
+          <div className="tripPlaceGroup">
+            <div className="tripPlaceLabel">場所</div>
+            <input
+              type="text"
+              className="tripPlaceInput"
+              placeholder="東京"
+              required
+              ref={place}
+            />
+          </div>
+
+          <div className="tripDateGroup">
+            <div className="tripDateLabel">日付</div>
+            <DateRange
+              // className="customDateRange"
+              onChange={(ranges) => setSelectedDateRange([ranges.selection])}
+              showSelectionPreview={true}
+              moveRangeOnFirstSelection={false}
+              months={1}
+              ranges={selectedDateRange}
+              dateDisplayFormat={"yyyy/MM/dd(E)"}
+              direction="horizontal"
+              locale={ja}
+            />
+          </div>
+        </div>
+
         <div className="divider" />
         <button className="go2registerButton" type="submit">
           登録

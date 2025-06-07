@@ -11,9 +11,7 @@ db_path = os.path.join(BASE_DIR, '../triplist.db')
 
 @get_triplist_bp.route('/triplist', methods=['GET'])
 def get_triplist():
-    print(db_path)
-    data = request.get_json()
-    user = data.get('user') #*membersのemailと合わせる
+    user = request.args.get('user')  # 例: /triplist?user=user1@example.com
 
     if not user:
         return jsonify({'error': 'Not user'}), 400
@@ -29,13 +27,6 @@ def get_triplist():
         WHERE members.email = ?;
     ''', (user,))
 
-    rows = cur.fetchall()
-
-    # 取得結果をターミナルに表示
-    for row in rows:
-        print(row)
-
-    conn.close()
     conn.close()
     
     return jsonify({'message': 'get triplist'}), 201

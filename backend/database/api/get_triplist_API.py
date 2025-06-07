@@ -11,6 +11,7 @@ db_path = os.path.join(BASE_DIR, '../triplist.db')
 
 @get_triplist_bp.route('/triplist', methods=['GET'])
 def get_triplist():
+    print(db_path)
     data = request.get_json()
     user = data.get('user') #*membersのemailと合わせる
 
